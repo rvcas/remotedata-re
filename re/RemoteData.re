@@ -32,18 +32,16 @@ let map2 = (f, a, b) => map(f, a) |> andMap(b);
 
 let map3 = (f, a, b, c) => map(f, a) |> andMap(b) |> andMap(c);
 
-let mapError = (f, data) =>
-  switch data {
-  | Success(x) => Success(x)
-  | Failure(e) => Failure(f @@ e)
-  | Loading => Loading
-  | NotAsked => NotAsked
-  };
-
 let withDefault = (default, data) =>
   switch data {
   | Success(x) => x
   | _ => default
+  };
+
+let fromResult = result =>
+  switch result {
+  | Js.Result.Ok(x) => Success(x)
+  | Js.Result.Error(e) => Failure(e)
   };
 
 let isSuccess = data =>
