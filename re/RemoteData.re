@@ -4,6 +4,8 @@ type remoteData('a, 'e) =
   | Failure('e)
   | Success('a);
 
+type webData('a) = remoteData('a, Js.Promise.error);
+
 let map = (f, data) =>
   switch data {
   | Success(value) => Success(f @@ value)
