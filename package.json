@@ -1,0 +1,19 @@
+{
+  "name": "bs-package-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate for BuckleScript NPM package",
+  "main": "lib/js/re/remotedata.js",
+  "repository": "git@github.com:Astrocoders/bs-package-boilerplate.git",
+  "author": "Gabriel R. Abreu <grsabreu@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "bs-platform": "^2.1.0"
+  },
+  "scripts": {
+    "start": "yarn bs:watch",
+    "bs:build": "bsb -make-world -clean-world",
+    "bs:watch": "bsb -make-world -clean-world -w",
+    "bs:setup": "bsb -make-world"
+  }
+}
