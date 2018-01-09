@@ -7,8 +7,6 @@ type remoteData('a, 'e) =
 /* Error should probably be something else */
 type webData('a) = remoteData('a, Js.Promise.error);
 
-let succeed = a => Success(a);
-
 let andMap = (wrappedValue, wrappedFunction) =>
   switch (wrappedFunction, wrappedValue) {
   | (Success(f), Success(value)) => Success(f @@ value)
@@ -43,6 +41,16 @@ let fromResult = result =>
   | Js.Result.Ok(x) => Success(x)
   | Js.Result.Error(e) => Failure(e)
   };
+
+let mapError = (f, data) =>
+  switch data {
+  | Success(x) => Success(x)
+  | Failure(e) => Failure(f @@ e)
+  | Loading => Loading
+  | NotAsked => NotAsked
+  };
+
+let succeed = a => Success(a);
 
 let isSuccess = data =>
   switch data {
