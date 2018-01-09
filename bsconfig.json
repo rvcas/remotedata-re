@@ -3,7 +3,7 @@
   "reason": {
     "react-jsx": 2
   },
-  "bs-dependencies": [],
+  "bs-dependencies": ["bs-fetch"],
   "bsc-flags": ["-bs-super-errors"],
   "refmt": 3,
   "namespace": true,
