@@ -1,10 +1,10 @@
 {
-  "name": "bs-package-boilerplate",
-  "version": "1.0.0",
-  "description": "Boilerplate for BuckleScript NPM package",
+  "name": "RemoteData",
+  "version": "0.0.0",
+  "description": "RemoteData in reasonml inspired by the elm package",
   "main": "lib/js/re/remotedata.js",
-  "repository": "git@github.com:Astrocoders/bs-package-boilerplate.git",
-  "author": "Gabriel R. Abreu <grsabreu@gmail.com>",
+  "repository": "git@github.com:lrosa007/remotedata.git",
+  "author": "Lucas Rosa <lucas@blubeta.com>",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
