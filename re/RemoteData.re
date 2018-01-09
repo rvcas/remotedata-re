@@ -1,4 +1,4 @@
-type remoteData('e, 'a) =
+type remoteData('a, 'e) =
   | NotAsked
   | Loading
   | Failure('e)
