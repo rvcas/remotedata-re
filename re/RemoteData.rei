@@ -4,6 +4,9 @@ type remoteData('a, 'e) =
   | Failure('e)
   | Success('a);
 
+let andMap:
+  (remoteData('a, 'e), remoteData('a => 'b, 'e)) => remoteData('b, 'e);
+
 let map: ('a => 'b, remoteData('a, 'e)) => remoteData('b, 'e);
 
 let map2:
@@ -34,9 +37,6 @@ let toOption: remoteData('a, 'e) => option('a);
 
 let append:
   (remoteData('a, 'e), remoteData('b, 'e)) => remoteData(('a, 'b), 'e);
-
-let andMap:
-  (remoteData('a, 'e), remoteData('a => 'b, 'e)) => remoteData('b, 'e);
 
 let succeed: 'a => remoteData('a, 'e);
 
