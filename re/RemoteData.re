@@ -1,3 +1,5 @@
+open Utils;
+
 type remoteData('a, 'e) =
   | NotAsked
   | Loading
@@ -30,18 +32,6 @@ let map2 = (f, a, b) => map(f, a) |> andMap(b);
 
 let map3 = (f, a, b, c) => map(f, a) |> andMap(b) |> andMap(c);
 
-let withDefault = (default, data) =>
-  switch data {
-  | Success(x) => x
-  | _ => default
-  };
-
-let fromResult = result =>
-  switch result {
-  | Js.Result.Ok(x) => Success(x)
-  | Js.Result.Error(e) => Failure(e)
-  };
-
 let mapError = (f, data) =>
   switch data {
   | Success(x) => Success(x)
@@ -49,6 +39,38 @@ let mapError = (f, data) =>
   | Loading => Loading
   | NotAsked => NotAsked
   };
+
+let mapBoth = (successFn, errorFn) => mapError(errorFn) @! map(successFn);
+
+let andThen = (f, data) =>
+  switch data {
+  | Success(a) => f(a)
+  | Failure(e) => Failure(e)
+  | NotAsked => NotAsked
+  | Loading => Loading
+  };
+
+let withDefault = (default, data) =>
+  switch data {
+  | Success(x) => x
+  | _ => default
+  };
+
+let fromResult = result =>
+  Js.Result.(
+    switch result {
+    | Ok(x) => Success(x)
+    | Error(e) => Failure(e)
+    }
+  );
+
+let toOption = data =>
+  switch data {
+  | Success(a) => Some(a)
+  | _ => None
+  };
+
+let append = (a, b) => map((a, b) => (a, b), a) |> andMap(b);
 
 let succeed = a => Success(a);
 
