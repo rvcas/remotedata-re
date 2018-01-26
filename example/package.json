@@ -1,0 +1,20 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "Example using remoteData",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn watch & parcel index.html",
+    "build": "parcel build index.html",
+    "watch": "bsb -make-world -w"
+  },
+  "dependencies": {
+    "bs-fetch": "^0.2.1",
+    "bs-json": "^1.0.1",
+    "reason-react": "^0.3.1"
+  },
+  "devDependencies": {
+    "bs-platform": "^2.1.0",
+    "parcel-bundler": "^1.5.0"
+  }
+}

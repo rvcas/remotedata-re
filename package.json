@@ -6,9 +6,7 @@
   "repository": "git@github.com:lrosa007/remotedata.git",
   "author": "Lucas Rosa <lucas@blubeta.com>",
   "license": "MIT",
-  "dependencies": {
-    "bs-fetch": "^0.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "bs-platform": "^2.1.0"
   },
