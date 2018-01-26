@@ -6,8 +6,6 @@ type remoteData('a, 'e) =
   | Failure('e)
   | Success('a);
 
-type webData('a) = remoteData('a, Js.Promise.error);
-
 let andMap = (wrappedValue, wrappedFunction) =>
   switch (wrappedFunction, wrappedValue) {
   | (Success(f), Success(value)) => Success(f @@ value)
