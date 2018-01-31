@@ -14,7 +14,7 @@
     "bs-fetch",
     "bs-json",
     "reason-react",
-    "remotedata"
+    "remotedata-re"
   ],
   "refmt": 3
 }
