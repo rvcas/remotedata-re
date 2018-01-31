@@ -1,19 +1,17 @@
 {
-  "name": "remotedata",
+  "name": "remotedata-re",
   "version": "0.1.0",
   "description": "RemoteData in reasonml inspired by the elm package",
   "main": "lib/js/re/remotedata.js",
-  "repository": "git@github.com:lrosa007/remotedata.git",
+  "repository": "git@github.com:lrosa007/remotedata-re.git",
   "author": "Lucas Rosa <lucas@blubeta.com>",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "bs-platform": "^2.1.0"
   },
   "scripts": {
-    "start": "yarn bs:watch",
-    "bs:build": "bsb -make-world -clean-world",
-    "bs:watch": "bsb -make-world -clean-world -w",
-    "bs:setup": "bsb -make-world"
+    "start": "bsb -make-world -clean-world -w",
+    "build": "bsb -make-world -clean-world",
+    "setup": "bsb -make-world"
   }
 }
