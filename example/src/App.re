@@ -1,4 +1,4 @@
-type webData('a) = Remotedata.RemoteData.remoteData('a, string);
+type webData('a) = RemoteData.remoteData('a, string);
 
 type repo = {
   id: int,
@@ -25,9 +25,11 @@ let make = _children => {
   let repoItems = repos =>
     repos
     |> List.map(repo =>
-         <div key=(string_of_int(repo.id))>
-           (ReasonReact.stringToElement(repo.name))
-         </div>
+         <li key=(string_of_int(repo.id)) className="flex flex-row">
+           <div className="flex flex-row">
+             (ReasonReact.stringToElement(repo.name))
+           </div>
+         </li>
        );
   let fetchRepos = ({ReasonReact.state, send}) => {
     Js.Promise.(
@@ -61,27 +63,20 @@ let make = _children => {
   };
   {
     ...component,
-    initialState: () => {username: "", repos: Remotedata.RemoteData.NotAsked},
+    initialState: () => {username: "", repos: RemoteData.NotAsked},
     reducer: (action, state) =>
       switch action {
       | ChangeUsername(username) => ReasonReact.Update({...state, username})
       | SearchEnterKeyDown =>
         ReasonReact.SideEffects((self => fetchRepos(self)))
-      | Loading =>
-        ReasonReact.Update({...state, repos: Remotedata.RemoteData.Loading})
+      | Loading => ReasonReact.Update({...state, repos: RemoteData.Loading})
       | ReposLoaded(repos) =>
-        ReasonReact.Update({
-          ...state,
-          repos: Remotedata.RemoteData.Success(repos)
-        })
+        ReasonReact.Update({...state, repos: RemoteData.Success(repos)})
       | ReposError(err) =>
-        ReasonReact.Update({
-          ...state,
-          repos: Remotedata.RemoteData.Failure(err)
-        })
+        ReasonReact.Update({...state, repos: RemoteData.Failure(err)})
       },
     render: ({state, send}) =>
-      <div>
+      <div className="flex flex-col justify-center items-center mt-8">
         <input
           placeholder="github username"
           value=state.username
@@ -107,7 +102,15 @@ let make = _children => {
           | Loading => <p> (ReasonReact.stringToElement("Loading...")) </p>
           | Failure(e) => <p> (ReasonReact.stringToElement(e)) </p>
           | Success(repos) =>
-            ReasonReact.arrayToElement(repos |> repoItems |> Array.of_list)
+            <div className="flex flex-col p-0 m-0">
+              <ul>
+                (
+                  ReasonReact.arrayToElement(
+                    repos |> repoItems |> Array.of_list
+                  )
+                )
+              </ul>
+            </div>
           }
         )
       </div>

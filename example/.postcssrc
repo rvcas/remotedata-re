@@ -1,0 +1,7 @@
+{
+  "plugins": {
+    "tailwindcss": "./tailwind.config.js",
+    "autoprefixer": true,
+    "cssnano": true
+  }
+}

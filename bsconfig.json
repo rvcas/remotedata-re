@@ -6,7 +6,6 @@
   "bs-dependencies": [],
   "bsc-flags": ["-bs-super-errors"],
   "refmt": 3,
-  "namespace": true,
   "sources": [
     {
       "dir": "re"
