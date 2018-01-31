@@ -1,10 +1,10 @@
-open Utils;
-
-type remoteData('a, 'e) =
+type t('a, 'e) =
   | NotAsked
   | Loading
   | Failure('e)
   | Success('a);
+
+let (@!) = (g, f, x) => g(f(x));
 
 let andMap = (wrappedValue, wrappedFunction) =>
   switch (wrappedFunction, wrappedValue) {

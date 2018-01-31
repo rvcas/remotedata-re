@@ -1,6 +1,6 @@
 {
   "name": "remotedata",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "RemoteData in reasonml inspired by the elm package",
   "main": "lib/js/re/remotedata.js",
   "repository": "git@github.com:lrosa007/remotedata.git",
