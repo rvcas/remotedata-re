@@ -8,7 +8,7 @@
   "refmt": 3,
   "sources": [
     {
-      "dir": "re"
+      "dir": "src"
     }
   ]
 }

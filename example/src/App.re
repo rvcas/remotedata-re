@@ -1,4 +1,4 @@
-type webData('a) = RemoteData.remoteData('a, string);
+type webData('a) = RemoteData.t('a, string);
 
 type repo = {
   id: int,
