@@ -11,7 +11,8 @@
   "dependencies": {
     "bs-fetch": "^0.2.1",
     "bs-json": "^1.0.1",
-    "reason-react": "^0.3.1"
+    "reason-react": "^0.3.1",
+    "remotedata-re": "^0.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",
