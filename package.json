@@ -1,8 +1,8 @@
 {
   "name": "remotedata-re",
   "version": "0.1.2",
-  "description": "RemoteData in reasonml inspired by the elm package",
-  "main": "lib/js/re/remotedata.js",
+  "description": "Tools for fetching data from remote sources in Reason",
+  "main": "lib/js/src/remotedata.js",
   "repository": "git@github.com:lrosa007/remotedata-re.git",
   "author": "Lucas Rosa <lucas@blubeta.com>",
   "license": "MIT",
