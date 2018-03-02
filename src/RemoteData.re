@@ -53,44 +53,38 @@ let withDefault = (default, data) =>
   | _ => default
   };
 
-let fromResult = result =>
+let fromResult =
   Js.Result.(
-    switch result {
+    fun
     | Ok(x) => Success(x)
     | Error(e) => Failure(e)
-    }
   );
 
-let toOption = data =>
-  switch data {
+let toOption =
+  fun
   | Success(a) => Some(a)
-  | _ => None
-  };
+  | _ => None;
 
 let append = (a, b) => map((a, b) => (a, b), a) |> andMap(b);
 
 let succeed = a => Success(a);
 
-let isSuccess = data =>
-  switch data {
+let isSuccess =
+  fun
   | Success(_a) => true
-  | _ => false
-  };
+  | _ => false;
 
-let isFailure = data =>
-  switch data {
+let isFailure =
+  fun
   | Failure(_e) => true
-  | _ => false
-  };
+  | _ => false;
 
-let isLoading = data =>
-  switch data {
+let isLoading =
+  fun
   | Loading => true
-  | _ => false
-  };
+  | _ => false;
 
-let isNotAsked = data =>
-  switch data {
+let isNotAsked =
+  fun
   | NotAsked => true
-  | _ => false
-  };
+  | _ => false;
