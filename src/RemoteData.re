@@ -1,6 +1,6 @@
-type t('a, 'e) =
+type t('a, 'p, 'e) =
   | NotAsked
-  | Loading
+  | Loading('p)
   | Failure('e)
   | Success('a);
 
@@ -11,8 +11,8 @@ let andMap = (wrappedValue, wrappedFunction) =>
   | (Success(f), Success(value)) => Success(f @@ value)
   | (Failure(error), _) => Failure(error)
   | (_, Failure(error)) => Failure(error)
-  | (Loading, _) => Loading
-  | (_, Loading) => Loading
+  | (Loading(p), _) => Loading(p)
+  | (_, Loading(p)) => Loading(p)
   | (NotAsked, _) => NotAsked
   | (_, NotAsked) => NotAsked
   };
@@ -21,7 +21,7 @@ let map = (f, data) =>
   switch data {
   | Success(value) => Success(f @@ value)
   | Failure(e) => Failure(e)
-  | Loading => Loading
+  | Loading(p) => Loading(p)
   | NotAsked => NotAsked
   };
 
@@ -33,7 +33,7 @@ let mapError = (f, data) =>
   switch data {
   | Success(x) => Success(x)
   | Failure(e) => Failure(f @@ e)
-  | Loading => Loading
+  | Loading(y) => Loading(y)
   | NotAsked => NotAsked
   };
 
@@ -44,7 +44,7 @@ let andThen = (f, data) =>
   | Success(a) => f(a)
   | Failure(e) => Failure(e)
   | NotAsked => NotAsked
-  | Loading => Loading
+  | Loading(p) => Loading(p)
   };
 
 let withDefault = (default, data) =>
@@ -81,7 +81,7 @@ let isFailure =
 
 let isLoading =
   fun
-  | Loading => true
+  | Loading(_) => true
   | _ => false;
 
 let isNotAsked =
