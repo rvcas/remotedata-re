@@ -63,3 +63,5 @@ src/RemoteData.js
 
 example/.cache
 example/dist
+
+.bsb.lock
