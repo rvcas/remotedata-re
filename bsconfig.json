@@ -5,7 +5,7 @@
   },
   "bsc-flags": ["-bs-super-errors"],
   "refmt": 3,
-  "bs-dependencies": ["@glennsl/bs-jest"],
+  "bs-dev-dependencies": ["@glennsl/bs-jest"],
   "sources": [
     {
       "dir": "src"
