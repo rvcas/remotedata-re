@@ -69,7 +69,7 @@ describe("RemoteData", () => {
     test("Success", () =>
       RemoteData.andMap(
         RemoteData.Success("before"),
-        RemoteData.Success(_nothing => "after"),
+        RemoteData.Success(_before => "after"),
       )
       |> expect
       |> toEqual(RemoteData.Success("after"))
