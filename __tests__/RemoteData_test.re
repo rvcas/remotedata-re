@@ -68,45 +68,75 @@ describe("RemoteData", () => {
   describe("andMap", () => {
     test("Success", () =>
       RemoteData.andMap(
-      RemoteData.Success("before"),
-      RemoteData.Success(_ => "after")
-      ) |> expect |> toEqual(RemoteData.Success("after"))
+        RemoteData.Success("before"),
+        RemoteData.Success(_nothing => "after"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Success("after"))
     );
     test("Failure before", () =>
-      RemoteData.andMap(
-      RemoteData.Failure("before"),
-      RemoteData.NotAsked
-      ) |> expect |> toEqual(RemoteData.Failure("before"))
+      RemoteData.andMap(RemoteData.Failure("before"), RemoteData.NotAsked)
+      |> expect
+      |> toEqual(RemoteData.Failure("before"))
     );
     test("Failure after", () =>
-      RemoteData.andMap(
-      RemoteData.NotAsked,
-      RemoteData.Failure("after"),
-      ) |> expect |> toEqual(RemoteData.Failure("after"))
-      );
+      RemoteData.andMap(RemoteData.NotAsked, RemoteData.Failure("after"))
+      |> expect
+      |> toEqual(RemoteData.Failure("after"))
+    );
     test("Loading before", () =>
-      RemoteData.andMap(
-      RemoteData.Loading("before"),
-      RemoteData.NotAsked,
-      ) |> expect |> toEqual(RemoteData.Loading("before"))
+      RemoteData.andMap(RemoteData.Loading("before"), RemoteData.NotAsked)
+      |> expect
+      |> toEqual(RemoteData.Loading("before"))
     );
     test("Loading after", () =>
-      RemoteData.andMap(
-      RemoteData.NotAsked,
-      RemoteData.Loading("after"),
-      ) |> expect |> toEqual(RemoteData.Loading("after"))
+      RemoteData.andMap(RemoteData.NotAsked, RemoteData.Loading("after"))
+      |> expect
+      |> toEqual(RemoteData.Loading("after"))
     );
     test("NotAsked before", () =>
       RemoteData.andMap(
-      RemoteData.NotAsked,
-      RemoteData.Success(_ => "after"),
-      ) |> expect |> toEqual(RemoteData.NotAsked)
+        RemoteData.NotAsked,
+        RemoteData.Success(_before => "after"),
+      )
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
     );
     test("NotAsked after", () =>
-      RemoteData.andMap(
-      RemoteData.Success("before"),
-      RemoteData.NotAsked,
-      ) |> expect |> toEqual(RemoteData.NotAsked)
+      RemoteData.andMap(RemoteData.Success("before"), RemoteData.NotAsked)
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
+    );
+  });
+  describe("and", () => {
+    test("Success", () =>
+      RemoteData.map(
+        before => before ++ "after",
+        RemoteData.Success("before"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Success("beforeafter"))
+    );
+    test("Failure", () =>
+      RemoteData.map(
+        before => before ++ "after",
+        RemoteData.Failure("failure"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Failure("failure"))
+    );
+    test("Loading", () =>
+      RemoteData.map(
+        before => before ++ "after",
+        RemoteData.Loading("loading"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Loading("loading"))
+    );
+    test("NotAsked", () =>
+      RemoteData.map(before => before ++ "after", RemoteData.NotAsked)
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
     );
   });
 });
