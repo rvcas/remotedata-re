@@ -428,4 +428,34 @@ describe("RemoteData", () => {
       |> expect
       |> toEqual( RemoteData.Failure("from result")));
   });
+  describe("toOption", () => {
+    test("Success", () =>
+      RemoteData.toOption(
+        RemoteData.Success("got success")
+      )
+      |> expect
+      |> toEqual(Some("got success"))
+    );
+    test("Failure", () =>
+      RemoteData.toOption(
+        RemoteData.Failure("got failure"),
+      )
+      |> expect
+      |> toEqual(None)
+    );
+    test("Loading", () =>
+      RemoteData.toOption(
+        RemoteData.Loading("got loading"),
+      )
+      |> expect
+      |> toEqual(None)
+    );
+    test("NotAsked", () =>
+      RemoteData.toOption(
+        RemoteData.Loading("got notAsked"),
+      )
+      |> expect
+      |> toEqual(None)
+    );
+  });
 });
