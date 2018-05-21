@@ -69,10 +69,10 @@ describe("RemoteData", () => {
     test("Success", () =>
       RemoteData.andMap(
         RemoteData.Success("before"),
-        RemoteData.Success(_before => "after"),
+        RemoteData.Success(before => before ++ " after"),
       )
       |> expect
-      |> toEqual(RemoteData.Success("after"))
+      |> toEqual(RemoteData.Success("before after"))
     );
     test("Failure before", () =>
       RemoteData.andMap(RemoteData.Failure("before"), RemoteData.NotAsked)
@@ -97,7 +97,7 @@ describe("RemoteData", () => {
     test("NotAsked before", () =>
       RemoteData.andMap(
         RemoteData.NotAsked,
-        RemoteData.Success(_before => "after"),
+        RemoteData.Success(before => before ++ " after"),
       )
       |> expect
       |> toEqual(RemoteData.NotAsked)
@@ -109,32 +109,24 @@ describe("RemoteData", () => {
     );
   });
   describe("map", () => {
+    let mapper = before => before ++ " after";
     test("Success", () =>
-      RemoteData.map(
-        before => before ++ "after",
-        RemoteData.Success("before"),
-      )
+      RemoteData.map(mapper, RemoteData.Success("before"))
       |> expect
-      |> toEqual(RemoteData.Success("beforeafter"))
+      |> toEqual(RemoteData.Success("before after"))
     );
     test("Failure", () =>
-      RemoteData.map(
-        before => before ++ "after",
-        RemoteData.Failure("failure"),
-      )
+      RemoteData.map(mapper, RemoteData.Failure("failure"))
       |> expect
       |> toEqual(RemoteData.Failure("failure"))
     );
     test("Loading", () =>
-      RemoteData.map(
-        before => before ++ "after",
-        RemoteData.Loading("loading"),
-      )
+      RemoteData.map(mapper, RemoteData.Loading("loading"))
       |> expect
       |> toEqual(RemoteData.Loading("loading"))
     );
     test("NotAsked", () =>
-      RemoteData.map(before => before ++ "after", RemoteData.NotAsked)
+      RemoteData.map(mapper, RemoteData.NotAsked)
       |> expect
       |> toEqual(RemoteData.NotAsked)
     );
@@ -187,11 +179,7 @@ describe("RemoteData", () => {
       |> toEqual(RemoteData.Loading("loading2"))
     );
     test("NotAsked - first", () =>
-      RemoteData.map2(
-        mapper,
-        RemoteData.NotAsked,
-        RemoteData.NotAsked,
-      )
+      RemoteData.map2(mapper, RemoteData.NotAsked, RemoteData.NotAsked)
       |> expect
       |> toEqual(RemoteData.NotAsked)
     );
@@ -305,6 +293,29 @@ describe("RemoteData", () => {
         RemoteData.Success("notAsked2"),
         RemoteData.NotAsked,
       )
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
+    );
+  });
+  describe("mapError", () => {
+    let mapper = before => before ++ " after";
+    test("Success", () =>
+      RemoteData.mapError(mapper, RemoteData.Success("before"))
+      |> expect
+      |> toEqual(RemoteData.Success("before"))
+    );
+    test("Failure", () =>
+      RemoteData.mapError(mapper, RemoteData.Failure("before"))
+      |> expect
+      |> toEqual(RemoteData.Failure("before after"))
+    );
+    test("Loading", () =>
+      RemoteData.mapError(mapper, RemoteData.Loading("loading"))
+      |> expect
+      |> toEqual(RemoteData.Loading("loading"))
+    );
+    test("NotAsked", () =>
+      RemoteData.mapError(mapper, RemoteData.NotAsked)
       |> expect
       |> toEqual(RemoteData.NotAsked)
     );
