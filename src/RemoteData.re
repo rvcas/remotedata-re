@@ -18,7 +18,7 @@ let andMap = (wrappedValue, wrappedFunction) =>
   };
 
 let map = (f, data) =>
-  switch data {
+  switch (data) {
   | Success(value) => Success(f @@ value)
   | Failure(e) => Failure(e)
   | Loading(p) => Loading(p)
@@ -30,7 +30,7 @@ let map2 = (f, a, b) => map(f, a) |> andMap(b);
 let map3 = (f, a, b, c) => map(f, a) |> andMap(b) |> andMap(c);
 
 let mapError = (f, data) =>
-  switch data {
+  switch (data) {
   | Success(x) => Success(x)
   | Failure(e) => Failure(f @@ e)
   | Loading(y) => Loading(y)
@@ -40,15 +40,15 @@ let mapError = (f, data) =>
 let mapBoth = (successFn, errorFn) => mapError(errorFn) @! map(successFn);
 
 let andThen = (f, data) =>
-  switch data {
+  switch (data) {
   | Success(a) => f(a)
-  | Failure(e) => Failure(e)
-  | NotAsked => NotAsked
-  | Loading(p) => Loading(p)
+  | Failure(_) => data
+  | NotAsked => data
+  | Loading(_) => data
   };
 
 let withDefault = (default, data) =>
-  switch data {
+  switch (data) {
   | Success(x) => x
   | _ => default
   };

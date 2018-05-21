@@ -356,4 +356,27 @@ describe("RemoteData", () => {
       |> toEqual(RemoteData.NotAsked)
     );
   });
+  describe("andThen", () => {
+    let mapper = before => RemoteData.Failure(before ++ " after");
+    test("Success", () =>
+      RemoteData.andThen(mapper, RemoteData.Success("before"))
+      |> expect
+      |> toEqual(RemoteData.Failure("before after"))
+    );
+    test("Failure", () =>
+      RemoteData.andThen(mapper, RemoteData.Failure("before"))
+      |> expect
+      |> toEqual(RemoteData.Failure("before"))
+    );
+    test("Loading", () =>
+      RemoteData.andThen(mapper, RemoteData.Loading("loading"))
+      |> expect
+      |> toEqual(RemoteData.Loading("loading"))
+    );
+    test("NotAsked", () =>
+      RemoteData.andThen(mapper, RemoteData.NotAsked)
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
+    );
+  });
 });
