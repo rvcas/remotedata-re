@@ -379,4 +379,38 @@ describe("RemoteData", () => {
       |> toEqual(RemoteData.NotAsked)
     );
   });
+  describe("withDefault", () => {
+    test("Success", () =>
+      RemoteData.withDefault(
+        "got default",
+        RemoteData.Success("got success")
+      )
+      |> expect
+      |> toBe("got success")
+    );
+    test("Failure", () =>
+      RemoteData.withDefault(
+        "got default",
+        RemoteData.Failure("got failure"),
+      )
+      |> expect
+      |> toBe("got default")
+    );
+    test("Loading", () =>
+      RemoteData.withDefault(
+        "got default",
+        RemoteData.Loading("got loading"),
+      )
+      |> expect
+      |> toBe("got default")
+    );
+    test("NotAsked", () =>
+      RemoteData.withDefault(
+        "got default",
+        RemoteData.Loading("got notAsked"),
+      )
+      |> expect
+      |> toEqual("got default")
+    );
+  });
 });
