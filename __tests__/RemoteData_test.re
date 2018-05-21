@@ -140,9 +140,10 @@ describe("RemoteData", () => {
     );
   });
   describe("map2", () => {
+    let mapper = (before1, before2) => before1 ++ " " ++ before2 ++ " after";
     test("Success", () =>
       RemoteData.map2(
-        (before1, before2) => before1 ++ " " ++ before2  ++  " after",
+        mapper,
         RemoteData.Success("before1"),
         RemoteData.Success("before2"),
       )
@@ -151,16 +152,16 @@ describe("RemoteData", () => {
     );
     test("Failure - first", () =>
       RemoteData.map2(
-        (before1, before2) => before1 ++ before2 ++ " after1",
+        mapper,
         RemoteData.Failure("failure1"),
-        RemoteData.Success("failure2"),
+        RemoteData.Failure("failure2"),
       )
       |> expect
       |> toEqual(RemoteData.Failure("failure1"))
     );
     test("Failure - second", () =>
       RemoteData.map2(
-        (before1, before2) => before1 ++ before2 ++ " after1",
+        mapper,
         RemoteData.Success("failure1"),
         RemoteData.Failure("failure2"),
       )
@@ -169,7 +170,7 @@ describe("RemoteData", () => {
     );
     test("Loading - first", () =>
       RemoteData.map2(
-        (before1, before2) => before1 ++ before2 ++ " after1",
+        mapper,
         RemoteData.Loading("loading1"),
         RemoteData.Loading("loading2"),
       )
@@ -178,7 +179,7 @@ describe("RemoteData", () => {
     );
     test("Loading - second", () =>
       RemoteData.map2(
-        (before1, before2) => before1 ++ before2 ++ " after1",
+        mapper,
         RemoteData.Success("loading1"),
         RemoteData.Loading("loading2"),
       )
@@ -187,8 +188,8 @@ describe("RemoteData", () => {
     );
     test("NotAsked - first", () =>
       RemoteData.map2(
-        (before1, before2) => before1 ++ before2 ++ " after1",
-        RemoteData.Success("notAsked1"),
+        mapper,
+        RemoteData.NotAsked,
         RemoteData.NotAsked,
       )
       |> expect
@@ -196,9 +197,113 @@ describe("RemoteData", () => {
     );
     test("NotAsked - second", () =>
       RemoteData.map2(
-        (before1, before2) => before1 ++ before2 ++ " after1",
+        mapper,
+        RemoteData.Success("notAsked1"),
         RemoteData.NotAsked,
+      )
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
+    );
+  });
+  describe("map3", () => {
+    let mapper = (before1, before2, before3) =>
+      before1 ++ " " ++ before2 ++ " " ++ before3 ++ " after";
+    test("Success", () =>
+      RemoteData.map3(
+        mapper,
+        RemoteData.Success("before1"),
+        RemoteData.Success("before2"),
+        RemoteData.Success("before3"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Success("before1 before2 before3 after"))
+    );
+    test("Failure - first", () =>
+      RemoteData.map3(
+        mapper,
+        RemoteData.Failure("failure1"),
+        RemoteData.Failure("failure2"),
+        RemoteData.Failure("failure3"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Failure("failure1"))
+    );
+    test("Failure - second", () =>
+      RemoteData.map3(
+        mapper,
+        RemoteData.Success("failure1"),
+        RemoteData.Failure("failure2"),
+        RemoteData.Failure("failure3"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Failure("failure2"))
+    );
+    test("Failure - third", () =>
+      RemoteData.map3(
+        mapper,
+        RemoteData.Success("failure1"),
+        RemoteData.Success("failure2"),
+        RemoteData.Failure("failure3"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Failure("failure3"))
+    );
+    test("Loading - first", () =>
+      RemoteData.map3(
+        mapper,
+        RemoteData.Loading("loading1"),
+        RemoteData.Loading("loading2"),
+        RemoteData.Loading("loading3"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Loading("loading1"))
+    );
+    test("Loading - second", () =>
+      RemoteData.map3(
+        mapper,
+        RemoteData.Success("loading1"),
+        RemoteData.Loading("loading2"),
+        RemoteData.Loading("loading3"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Loading("loading2"))
+    );
+    test("Loading - third", () =>
+      RemoteData.map3(
+        mapper,
+        RemoteData.Success("loading1"),
+        RemoteData.Success("loading2"),
+        RemoteData.Loading("loading3"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Loading("loading3"))
+    );
+    test("NotAsked - first", () =>
+      RemoteData.map3(
+        mapper,
+        RemoteData.NotAsked,
+        RemoteData.NotAsked,
+        RemoteData.NotAsked,
+      )
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
+    );
+    test("NotAsked - second", () =>
+      RemoteData.map3(
+        mapper,
+        RemoteData.Success("notAsked1"),
+        RemoteData.NotAsked,
+        RemoteData.NotAsked,
+      )
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
+    );
+    test("NotAsked - third", () =>
+      RemoteData.map3(
+        mapper,
+        RemoteData.Success("notAsked1"),
         RemoteData.Success("notAsked2"),
+        RemoteData.NotAsked,
       )
       |> expect
       |> toEqual(RemoteData.NotAsked)
