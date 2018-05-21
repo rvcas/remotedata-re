@@ -413,4 +413,19 @@ describe("RemoteData", () => {
       |> toEqual("got default")
     );
   });
+  describe("fromResult", () => {
+    test("Ok", () =>
+      RemoteData.fromResult(
+        Js.Result.Ok("from result")
+      )
+      |> expect
+      |> toEqual(RemoteData.Success("from result"))
+    );
+    test("Error", () =>
+      RemoteData.fromResult(
+        Js.Result.Error("from result")
+      )
+      |> expect
+      |> toEqual( RemoteData.Failure("from result")));
+  });
 });
