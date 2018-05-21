@@ -108,7 +108,7 @@ describe("RemoteData", () => {
       |> toEqual(RemoteData.NotAsked)
     );
   });
-  describe("and", () => {
+  describe("map", () => {
     test("Success", () =>
       RemoteData.map(
         before => before ++ "after",
@@ -135,6 +135,71 @@ describe("RemoteData", () => {
     );
     test("NotAsked", () =>
       RemoteData.map(before => before ++ "after", RemoteData.NotAsked)
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
+    );
+  });
+  describe("map2", () => {
+    test("Success", () =>
+      RemoteData.map2(
+        (before1, before2) => before1 ++ " " ++ before2  ++  " after",
+        RemoteData.Success("before1"),
+        RemoteData.Success("before2"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Success("before1 before2 after"))
+    );
+    test("Failure - first", () =>
+      RemoteData.map2(
+        (before1, before2) => before1 ++ before2 ++ " after1",
+        RemoteData.Failure("failure1"),
+        RemoteData.Success("failure2"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Failure("failure1"))
+    );
+    test("Failure - second", () =>
+      RemoteData.map2(
+        (before1, before2) => before1 ++ before2 ++ " after1",
+        RemoteData.Success("failure1"),
+        RemoteData.Failure("failure2"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Failure("failure2"))
+    );
+    test("Loading - first", () =>
+      RemoteData.map2(
+        (before1, before2) => before1 ++ before2 ++ " after1",
+        RemoteData.Loading("loading1"),
+        RemoteData.Loading("loading2"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Loading("loading1"))
+    );
+    test("Loading - second", () =>
+      RemoteData.map2(
+        (before1, before2) => before1 ++ before2 ++ " after1",
+        RemoteData.Success("loading1"),
+        RemoteData.Loading("loading2"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Loading("loading2"))
+    );
+    test("NotAsked - first", () =>
+      RemoteData.map2(
+        (before1, before2) => before1 ++ before2 ++ " after1",
+        RemoteData.Success("notAsked1"),
+        RemoteData.NotAsked,
+      )
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
+    );
+    test("NotAsked - second", () =>
+      RemoteData.map2(
+        (before1, before2) => before1 ++ before2 ++ " after1",
+        RemoteData.NotAsked,
+        RemoteData.Success("notAsked2"),
+      )
       |> expect
       |> toEqual(RemoteData.NotAsked)
     );
