@@ -320,4 +320,40 @@ describe("RemoteData", () => {
       |> toEqual(RemoteData.NotAsked)
     );
   });
+  describe("mapBoth", () => {
+    let successMapper = before => before ++ " after success";
+    let errorMapper = before => before ++ " after error";
+    test("Success", () =>
+      RemoteData.mapBoth(
+        successMapper,
+        errorMapper,
+        RemoteData.Success("before"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Success("before after success"))
+    );
+    test("Failure", () =>
+      RemoteData.mapBoth(
+        successMapper,
+        errorMapper,
+        RemoteData.Failure("before"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Failure("before after error"))
+    );
+    test("Loading", () =>
+      RemoteData.mapBoth(
+        successMapper,
+        errorMapper,
+        RemoteData.Loading("loading"),
+      )
+      |> expect
+      |> toEqual(RemoteData.Loading("loading"))
+    );
+    test("NotAsked", () =>
+      RemoteData.mapBoth(successMapper, errorMapper, RemoteData.NotAsked)
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
+    );
+  });
 });
