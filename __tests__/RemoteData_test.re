@@ -484,4 +484,12 @@ describe("RemoteData", () => {
       |> toEqual(RemoteData.NotAsked)
     );
   });
+  describe("succeed", () => {
+    test("a => Success(a)", () =>
+      RemoteData.succeed("got success")
+      |> expect
+      |> toEqual(RemoteData.Success("got success"))
+    );
+    ignore();
+  });
 });
