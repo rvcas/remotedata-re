@@ -492,4 +492,92 @@ describe("RemoteData", () => {
     );
     ignore();
   });
+  describe("isSuccess", () => {
+    test("Success returns true", () =>
+      RemoteData.isSuccess(RemoteData.Success("got success"))
+      |> expect
+      |> toBe(true)
+    );
+    test("Failure returns false", () =>
+      RemoteData.isSuccess(RemoteData.Failure("got failure"))
+      |> expect
+      |> toBe(false)
+    );
+    test("Loading returns false", () =>
+      RemoteData.isSuccess(RemoteData.Loading("got loading"))
+      |> expect
+      |> toBe(false)
+    );
+    test("NotAsked returns false", () =>
+      RemoteData.isSuccess(RemoteData.NotAsked)
+      |> expect
+      |> toBe(false)
+    );
+  });
+  describe("isFailure", () => {
+    test("Success returns false", () =>
+      RemoteData.isFailure(RemoteData.Success("got success"))
+      |> expect
+      |> toBe(false)
+    );
+    test("Failure returns true", () =>
+      RemoteData.isFailure(RemoteData.Failure("got failure"))
+      |> expect
+      |> toBe(true)
+    );
+    test("Loading returns false", () =>
+      RemoteData.isFailure(RemoteData.Loading("got loading"))
+      |> expect
+      |> toBe(false)
+    );
+    test("NotAsked returns false", () =>
+      RemoteData.isFailure(RemoteData.NotAsked)
+      |> expect
+      |> toBe(false)
+    );
+  });
+  describe("isLoading", () => {
+    test("Success returns false", () =>
+      RemoteData.isLoading(RemoteData.Success("got success"))
+      |> expect
+      |> toBe(false)
+    );
+    test("Failure returns false", () =>
+      RemoteData.isLoading(RemoteData.Failure("got failure"))
+      |> expect
+      |> toBe(false)
+    );
+    test("Loading returns true", () =>
+      RemoteData.isLoading(RemoteData.Loading("got loading"))
+      |> expect
+      |> toBe(true)
+    );
+    test("NotAsked returns false", () =>
+      RemoteData.isLoading(RemoteData.NotAsked)
+      |> expect
+      |> toBe(false)
+    );
+  });
+  describe("isNotAsked", () => {
+    test("Success returns false", () =>
+      RemoteData.isNotAsked(RemoteData.Success("got success"))
+      |> expect
+      |> toBe(false)
+    );
+    test("Failure returns false", () =>
+      RemoteData.isNotAsked(RemoteData.Failure("got failure"))
+      |> expect
+      |> toBe(false)
+    );
+    test("Loading returns false", () =>
+      RemoteData.isNotAsked(RemoteData.Loading("got loading"))
+      |> expect
+      |> toBe(false)
+    );
+    test("NotAsked returns true", () =>
+      RemoteData.isNotAsked(RemoteData.NotAsked)
+      |> expect
+      |> toBe(true)
+    );
+  });
 });
