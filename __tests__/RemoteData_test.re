@@ -436,16 +436,16 @@ describe("RemoteData", () => {
       |> expect
       |> toEqual(None)
     );
-    /* test("Loading", () => */
-    /*   RemoteData.withDefault(RemoteData.Loading("got loading")) */
-    /*   |> expect */
-    /*   |> toEqual(None) */
-    /* ); */
-    /* test("NotAsked", () => */
-    /*   RemoteData.withDefault(RemoteData.NotAsked) */
-    /*   |> expect */
-    /*   |> toEqual(None) */
-    /* ); */
+    test("Loading", () =>
+      RemoteData.toOption(RemoteData.Loading("got loading"))
+      |> expect
+      |> toEqual(None)
+    );
+    test("NotAsked", () =>
+      RemoteData.toOption(RemoteData.NotAsked)
+      |> expect
+      |> toEqual(None)
+    );
   });
   describe("append", () => {
     test("Success(a) + Success(b) = Success((a, b))", () =>
