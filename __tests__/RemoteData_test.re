@@ -383,7 +383,7 @@ describe("RemoteData", () => {
     test("Success", () =>
       RemoteData.withDefault(
         "got default",
-        RemoteData.Success("got success")
+        RemoteData.Success("got success"),
       )
       |> expect
       |> toBe("got success")
@@ -415,47 +415,73 @@ describe("RemoteData", () => {
   });
   describe("fromResult", () => {
     test("Ok", () =>
-      RemoteData.fromResult(
-        Js.Result.Ok("from result")
-      )
+      RemoteData.fromResult(Js.Result.Ok("from result"))
       |> expect
       |> toEqual(RemoteData.Success("from result"))
     );
     test("Error", () =>
-      RemoteData.fromResult(
-        Js.Result.Error("from result")
-      )
+      RemoteData.fromResult(Js.Result.Error("from result"))
       |> expect
-      |> toEqual( RemoteData.Failure("from result")));
+      |> toEqual(RemoteData.Failure("from result"))
+    );
   });
   describe("toOption", () => {
     test("Success", () =>
-      RemoteData.toOption(
-        RemoteData.Success("got success")
-      )
+      RemoteData.toOption(RemoteData.Success("got success"))
       |> expect
       |> toEqual(Some("got success"))
     );
     test("Failure", () =>
-      RemoteData.toOption(
-        RemoteData.Failure("got failure"),
-      )
+      RemoteData.toOption(RemoteData.Failure("got failure"))
       |> expect
       |> toEqual(None)
     );
-    test("Loading", () =>
-      RemoteData.toOption(
-        RemoteData.Loading("got loading"),
-      )
+    /* test("Loading", () => */
+    /*   RemoteData.withDefault(RemoteData.Loading("got loading")) */
+    /*   |> expect */
+    /*   |> toEqual(None) */
+    /* ); */
+    /* test("NotAsked", () => */
+    /*   RemoteData.withDefault(RemoteData.NotAsked) */
+    /*   |> expect */
+    /*   |> toEqual(None) */
+    /* ); */
+  });
+  describe("append", () => {
+    test("Success(a) + Success(b) = Success((a, b))", () =>
+      RemoteData.append(RemoteData.Success("a"), RemoteData.Success("b"))
       |> expect
-      |> toEqual(None)
+      |> toEqual(RemoteData.Success(("a", "b")))
     );
-    test("NotAsked", () =>
-      RemoteData.toOption(
-        RemoteData.Loading("got notAsked"),
-      )
+    test("Failure(a) + Success(b) = Failure(a)", () =>
+      RemoteData.append(RemoteData.Failure("a"), RemoteData.Success("b"))
       |> expect
-      |> toEqual(None)
+      |> toEqual(RemoteData.Failure("a"))
+    );
+    test("Success(a) + Failure(b)", () =>
+      RemoteData.append(RemoteData.Success("a"), RemoteData.Failure("b"))
+      |> expect
+      |> toEqual(RemoteData.Failure("b"))
+    );
+    test("Loading(a) + Success(b) = Loading(a)", () =>
+      RemoteData.append(RemoteData.Loading("a"), RemoteData.Success("b"))
+      |> expect
+      |> toEqual(RemoteData.Loading("a"))
+    );
+    test("Success(a) + Loading(b) = Loading(b)", () =>
+      RemoteData.append(RemoteData.Success("a"), RemoteData.Loading("b"))
+      |> expect
+      |> toEqual(RemoteData.Loading("b"))
+    );
+    test("NotAsked + Success(b) = NotAsked", () =>
+      RemoteData.append(RemoteData.NotAsked, RemoteData.Success("b"))
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
+    );
+    test("Success(b) + NotAsked = NotAsked", () =>
+      RemoteData.append(RemoteData.Success("b"), RemoteData.NotAsked)
+      |> expect
+      |> toEqual(RemoteData.NotAsked)
     );
   });
 });
