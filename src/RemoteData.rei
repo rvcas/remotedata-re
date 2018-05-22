@@ -1,33 +1,35 @@
-type t('a, 'e);
+type t('a, 'p, 'e);
 
-let andMap: (t('a, 'e), t('a => 'b, 'e)) => t('b, 'e);
+let andMap: (t('a, 'p, 'e), t('a => 'b, 'p, 'e)) => t('b, 'p, 'e);
 
-let map: ('a => 'b, t('a, 'e)) => t('b, 'e);
+let map: ('a => 'b, t('a, 'p, 'e)) => t('b, 'p, 'e);
 
-let map2: (('a, 'b) => 'c, t('a, 'e), t('b, 'e)) => t('c, 'e);
+let map2: (('a, 'b) => 'c, t('a, 'p, 'e), t('b, 'p, 'e)) => t('c, 'p, 'e);
 
-let map3: (('a, 'b, 'c) => 'd, t('a, 'e), t('b, 'e), t('c, 'e)) => t('d, 'e);
+let map3:
+  (('a, 'b, 'c) => 'd, t('a, 'p, 'e), t('b, 'p, 'e), t('c, 'p, 'e)) =>
+  t('d, 'p, 'e);
 
-let mapError: ('e => 'f, t('a, 'e)) => t('a, 'f);
+let mapError: ('e => 'f, t('a, 'p, 'e)) => t('a, 'p, 'f);
 
-let mapBoth: ('a => 'b, 'e => 'f, t('a, 'e)) => t('b, 'f);
+let mapBoth: ('a => 'b, 'e => 'f, t('a, 'p, 'e)) => t('b, 'p, 'f);
 
-let andThen: ('a => t('b, 'e), t('a, 'e)) => t('b, 'e);
+let andThen: ('a => t('b, 'p, 'e), t('a, 'p, 'e)) => t('b, 'p, 'e);
 
-let withDefault: ('a, t('a, 'e)) => 'a;
+let withDefault: ('a, t('a, 'p, 'e)) => 'a;
 
-let fromResult: Js.Result.t('a, 'e) => t('a, 'e);
+let fromResult: Js.Result.t('a, 'e) => t('a, 'p, 'e);
 
-let toOption: t('a, 'e) => option('a);
+let toOption: t('a, 'p, 'e) => option('a);
 
-let append: (t('a, 'e), t('b, 'e)) => t(('a, 'b), 'e);
+let append: (t('a, 'p, 'e), t('b, 'p, 'e)) => t(('a, 'b), 'p, 'e);
 
-let succeed: 'a => t('a, 'e);
+let succeed: 'a => t('a, 'p, 'e);
 
-let isSuccess: t('a, 'e) => bool;
+let isSuccess: t('a, 'p, 'e) => bool;
 
-let isFailure: t('a, 'e) => bool;
+let isFailure: t('a, 'p, 'e) => bool;
 
-let isLoading: t('a, 'e) => bool;
+let isLoading: t('a, 'p, 'e) => bool;
 
-let isNotAsked: t('a, 'e) => bool;
+let isNotAsked: t('a, 'p, 'e) => bool;
