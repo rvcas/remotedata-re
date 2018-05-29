@@ -18,7 +18,7 @@ let andThen: ('a => t('a, 'p, 'e), t('a, 'p, 'e)) => t('a, 'p, 'e);
 
 let withDefault: ('a, t('a, 'p, 'e)) => 'a;
 
-let fromResult: Js.Result.t('a, 'e) => t('a, 'p, 'e);
+let fromResult: Belt.Result.t('a, 'e) => t('a, 'p, 'e);
 
 let toOption: t('a, 'p, 'e) => option('a);
 
