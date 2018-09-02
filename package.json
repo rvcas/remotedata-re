@@ -19,7 +19,7 @@
     "setup": "bsb -make-world",
     "start": "concurrently -n \"bsb,jest\" -c \"bold.white.bgMagenta,bold.black.bgYellow\" \"yarn watch:bsb\" \"yarn watch:test\"",
     "test": "jest",
-    "watch:bsb": "bsb -make-world -clean-world -color -w",
-    "watch:test": "jest --watch"
+    "watch:bsb": "bsb -make-world -w",
+    "watch:test": "jest --watchAll"
   }
 }
