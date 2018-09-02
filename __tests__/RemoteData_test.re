@@ -2,7 +2,10 @@ open Jest;
 
 open Expect;
 
-type t = RemoteData.t(string, string, string);
+type messageOk = string;
+type messageLoading = string;
+type messageError = string;
+type t = RemoteData.t(messageOk, messageLoading, messageError);
 
 describe("RemoteData", () => {
   describe("NotAsked", () => {
