@@ -54,7 +54,7 @@ let withDefault = (default, data) =>
   };
 
 let fromResult =
-  Js.Result.(
+  Belt.Result.(
     fun
     | Ok(x) => Success(x)
     | Error(e) => Failure(e)
