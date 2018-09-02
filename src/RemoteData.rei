@@ -1,4 +1,8 @@
-type t('a, 'p, 'e);
+type t('a, 'p, 'e) =
+  | NotAsked
+  | Loading('p)
+  | Failure('e)
+  | Success('a);
 
 let andMap: (t('a, 'p, 'e), t('a => 'b, 'p, 'e)) => t('b, 'p, 'e);
 
