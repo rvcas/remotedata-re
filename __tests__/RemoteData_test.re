@@ -2,7 +2,10 @@ open Jest;
 
 open Expect;
 
-type t = RemoteData.t(string, string, string);
+type messageOk = string;
+type messageLoading = string;
+type messageError = string;
+type t = RemoteData.t(messageOk, messageLoading, messageError);
 
 describe("RemoteData", () => {
   describe("NotAsked", () => {
@@ -415,12 +418,12 @@ describe("RemoteData", () => {
   });
   describe("fromResult", () => {
     test("Ok", () =>
-      RemoteData.fromResult(Js.Result.Ok("from result"))
+      RemoteData.fromResult(Belt.Result.Ok("from result"))
       |> expect
       |> toEqual(RemoteData.Success("from result"))
     );
     test("Error", () =>
-      RemoteData.fromResult(Js.Result.Error("from result"))
+      RemoteData.fromResult(Belt.Result.Error("from result"))
       |> expect
       |> toEqual(RemoteData.Failure("from result"))
     );
@@ -442,9 +445,7 @@ describe("RemoteData", () => {
       |> toEqual(None)
     );
     test("NotAsked", () =>
-      RemoteData.toOption(RemoteData.NotAsked)
-      |> expect
-      |> toEqual(None)
+      RemoteData.toOption(RemoteData.NotAsked) |> expect |> toEqual(None)
     );
   });
   describe("append", () => {
@@ -509,9 +510,7 @@ describe("RemoteData", () => {
       |> toBe(false)
     );
     test("NotAsked returns false", () =>
-      RemoteData.isSuccess(RemoteData.NotAsked)
-      |> expect
-      |> toBe(false)
+      RemoteData.isSuccess(RemoteData.NotAsked) |> expect |> toBe(false)
     );
   });
   describe("isFailure", () => {
@@ -531,9 +530,7 @@ describe("RemoteData", () => {
       |> toBe(false)
     );
     test("NotAsked returns false", () =>
-      RemoteData.isFailure(RemoteData.NotAsked)
-      |> expect
-      |> toBe(false)
+      RemoteData.isFailure(RemoteData.NotAsked) |> expect |> toBe(false)
     );
   });
   describe("isLoading", () => {
@@ -553,9 +550,7 @@ describe("RemoteData", () => {
       |> toBe(true)
     );
     test("NotAsked returns false", () =>
-      RemoteData.isLoading(RemoteData.NotAsked)
-      |> expect
-      |> toBe(false)
+      RemoteData.isLoading(RemoteData.NotAsked) |> expect |> toBe(false)
     );
   });
   describe("isNotAsked", () => {
@@ -575,9 +570,7 @@ describe("RemoteData", () => {
       |> toBe(false)
     );
     test("NotAsked returns true", () =>
-      RemoteData.isNotAsked(RemoteData.NotAsked)
-      |> expect
-      |> toBe(true)
+      RemoteData.isNotAsked(RemoteData.NotAsked) |> expect |> toBe(true)
     );
   });
 });
