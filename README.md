@@ -36,10 +36,10 @@ let debugLog = (v: remoteData) =>
   switch (v) {
   | RemoteData.NotAsked => "Not Asked"
   | Loading(previous) => 
-    let s = previous->Js.Array.joinWith(", ");
+    let s = Js.Array.joinWith(", ", previous);
     {j|Loading ($s)|j}
   | Success(data) => 
-    let s = data->Js.Array.joinWith(" + ");
+    let s = Js.Array.joinWith(" + ", data);
     {j|Success ($s)|j}
   | Failure(error) => "Failure"
   };
