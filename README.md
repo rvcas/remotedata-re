@@ -1,7 +1,7 @@
 # RemoteData
 
 [![npm version](https://img.shields.io/npm/v/remotedata-re.svg?style=flat-square)](https://www.npmjs.com/package/remotedata-re)
-[![build status](https://img.shields.io/travis/lrosa007/remotedata-re/master.svg?style=flat-square)](https://travis-ci.com/lrosa007/remotedata-re)
+[![Build Status](https://travis-ci.com/lrosa007/remotedata-re.svg?branch=master)](https://travis-ci.com/lrosa007/remotedata-re)
 [![license](https://img.shields.io/npm/l/remotedata-re.svg?style=flat-square)](https://www.npmjs.com/package/remotedata-re)
 
 For some background, [read this post](http://blog.jenkster.com/2016/06/how-elm-slays-a-ui-antipattern.html)
