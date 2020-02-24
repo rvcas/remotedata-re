@@ -1,7 +1,7 @@
 # RemoteData
 
 [![npm version](https://img.shields.io/npm/v/remotedata-re.svg?style=flat-square)](https://www.npmjs.com/package/remotedata-re)
-[![build status](https://img.shields.io/travis/lrosa007/remotedata-re/master.svg?style=flat-square)](https://travis-ci.org/lrosa007/remotedata-re)
+[![build status](https://img.shields.io/travis/lrosa007/remotedata-re/master.svg?style=flat-square)](https://travis-ci.com/lrosa007/remotedata-re)
 [![license](https://img.shields.io/npm/l/remotedata-re.svg?style=flat-square)](https://www.npmjs.com/package/remotedata-re)
 
 For some background, [read this post](http://blog.jenkster.com/2016/06/how-elm-slays-a-ui-antipattern.html)
@@ -9,18 +9,22 @@ For some background, [read this post](http://blog.jenkster.com/2016/06/how-elm-s
 ## Installation
 
 ```shell
-npm install --save-dev remotedata-re
+npm install remotedata-re
+
 # or yarn
-yarn add --dev remotedata-re
+
+yarn add remotedata-re
 ```
 Then add it to `bsconfig.json`
 
 ```json
 {
   ...
+
   "bs-dependencies": [
     "remotedata-re"
   ]
+
   ...
 }
 ```
