@@ -19,13 +19,9 @@ Then add it to `bsconfig.json`
 
 ```json
 {
-  // ...
-
   "bs-dependencies": [
     "remotedata-re"
   ]
-
-  // ...
 }
 ```
 
