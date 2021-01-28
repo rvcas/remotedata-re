@@ -42,9 +42,9 @@ let mapBoth = (successFn, errorFn) => mapError(errorFn) @! map(successFn);
 let andThen = (f, data) =>
   switch (data) {
   | Success(a) => f(a)
-  | Failure(_) => data
-  | NotAsked => data
-  | Loading(_) => data
+  | Failure(v) => Failure(v)
+  | NotAsked => NotAsked
+  | Loading(v) => Loading(v)
   };
 
 let withDefault = (default, data) =>

@@ -18,7 +18,7 @@ let mapError: ('e => 'f, t('a, 'p, 'e)) => t('a, 'p, 'f);
 
 let mapBoth: ('a => 'b, 'e => 'f, t('a, 'p, 'e)) => t('b, 'p, 'f);
 
-let andThen: ('a => t('a, 'p, 'e), t('a, 'p, 'e)) => t('a, 'p, 'e);
+let andThen: ('a => t('b, 'p, 'e), t('a, 'p, 'e)) => t('b, 'p, 'e);
 
 let withDefault: ('a, t('a, 'p, 'e)) => 'a;
 
